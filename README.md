@@ -8,7 +8,7 @@ params: {
 }
 ```
 
-- track.events
+- track.event
 ```js 
 params: {
     Pid: 页面唯一id,
