@@ -16,15 +16,15 @@
       </div>
       <!-- 导航栏左部 -->
       <div class="navigation-right">
-        <router-link to="/about">
+        <div @click="goLink('/about')">
           <span>价格</span>
-        </router-link>
-        <router-link to="">
+        </div>
+        <div @click="down()">
           <span>下载</span>
-        </router-link>
-        <router-link to="">
+        </div>
+        <div>
           <span>为什么使用WITH-U</span>
-        </router-link>
+        </div>
       </div>
     </div>
     <div class="special-box"></div>
@@ -32,7 +32,63 @@
 </template>
 
 <script>
-export default {};
+var content = [];
+// export default 里边导出的才是vue（this）
+export default {
+  data() {
+    return {};
+  },
+  // 创建前
+  beforeCreate() {
+    let time = Date.now();
+    content.push(time);
+    // console.log(time)
+  },
+  // 挂载后
+  mounted() {
+    let time = Date.now();
+    content.push(time);
+    //使用原型链上的属性
+    this.$track.timer({
+      Pid: "Home",
+      Pname: "首页",
+      Ptime: content,
+      Pmsg: "页面加载时间",
+    });
+    // console.log(this);
+  },
+
+  methods: {
+    goLink(path) {
+      this.$track.event({
+        Pid: "Home",
+        Pevent: "跳转",
+        Pdetail: "跳转价格页面",
+        Pmsg: "一次事件触发",
+      });
+      this.$router.push({
+        path,
+      });
+    },
+    down() {
+      try {
+        this.$track.event({
+          Pid: "Home",
+          Pevent: "下载",
+          Pdetail: "下载with-u",
+          Pmsg: "一次事件触发",
+        });
+        console.log(asdf);
+      } catch (err) {
+        this.$track.error({
+          Pid: "Home",
+          Ptype: "下载错误",
+          Pmsg: err,
+        });
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -75,11 +131,12 @@ export default {};
       flex: 1;
       display: flex;
       flex-direction: row-reverse;
-      a {
+      div {
         margin-top: 20px;
         margin-right: 30px;
         color: #828387;
         font-size: 14px;
+        cursor: pointer;
       }
     }
   }

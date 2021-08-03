@@ -8,9 +8,9 @@
           经常被刷屏，错过很多重要信息？在飞书可以针对单条消息进行回复，
           即使同时讨论多个话题也不会混乱，还可以使用快捷表情，减少对他人的干扰。此外，飞书支持多语言实时翻译，跨国沟通零障碍，拥有更顺畅的团队写作。
         </p>
-        <router-link to="">
+        <div @click="know()">
           <span>了解详情</span>
-        </router-link>
+        </div>
       </div>
       <div class="bg-img"></div>
     </div>
@@ -18,7 +18,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    know() {
+      this.$track.event({
+        Pid: "Home",
+        Pevent: '点击事件',
+        Pdetail: '了解详情',
+        Pmsg: '点击了一次',
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
